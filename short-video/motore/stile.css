@@ -1,0 +1,73 @@
+
+    @font-face { font-family: "Space Grotesk"; font-weight: 700; src: url("assets/fonts/space-grotesk-700.woff2") format("woff2"); }
+    @font-face { font-family: "DM Sans"; font-weight: 500; src: url("assets/fonts/dm-sans-500.woff2") format("woff2"); }
+    @font-face { font-family: "DM Sans"; font-weight: 700; src: url("assets/fonts/dm-sans-700.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; font-family: "DM Sans", sans-serif; color: #0b0a09; }
+    .sh, .in { position: absolute; inset: 0; }
+    .w { display: inline-block; }
+    .riga { position: absolute; white-space: nowrap; font-weight: 500; letter-spacing: -0.025em; line-height: 1.15; color: #4a4540; }
+    .riga.s { color: #6b6560; }
+    .riga .b { font-weight: 700; color: #0b0a09; letter-spacing: -0.035em; }
+    .riga .o { color: #ff6a00; font-weight: 700; }
+    .riga.m, .riga.g { font-family: "Space Grotesk"; font-weight: 700; letter-spacing: -0.05em; line-height: 1; color: #0b0a09; }
+    .tagbox { display: inline-block; background: #0b0a09; border-radius: 20px; padding: 2px 34px 12px; font-family: "Space Grotesk"; font-weight: 700; font-style: italic; letter-spacing: -0.04em; box-shadow: 0 22px 46px rgba(11, 10, 9, 0.22); }
+    .tagbox .w { color: #f8f7f4 !important; }
+    .prop { position: absolute; }
+    .prop img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 34px 38px rgba(11, 10, 9, 0.18)); }
+    .stella { width: 100%; height: 100%; background: url("assets/marca/logo.png") center / contain no-repeat; }
+    .bottone { background: #ffffff !important;  position: absolute; width: 172px; height: 172px; border-radius: 50%; background: radial-gradient(circle at 34% 28%, #45403b, #0b0a09 68%); box-shadow: 0 28px 44px rgba(11, 10, 9, 0.34), inset 0 3px 6px rgba(255, 255, 255, 0.16); display: flex; align-items: center; justify-content: center; }
+    .bottone .stella { width: 104px; height: 104px; }
+    .filo { position: absolute; width: 4px; background: #ff6a00; border-radius: 2px; transform-origin: 50% 0; }
+    .filo.v { background: #d9d5cf; }
+    .raggio { position: absolute; height: 4px; margin-top: -2px; background: #ff6a00; border-radius: 2px; transform-origin: 0 50%; }
+    .card { position: absolute; border-radius: 30px; overflow: hidden; background: #ffffff; box-shadow: 0 44px 90px rgba(11, 10, 9, 0.18), 0 0 0 2px #e7e3dd; }
+    .card img { width: 100%; height: 100%; object-fit: cover; object-position: 0 0; display: block; }
+    .voce { z-index: 2; position: absolute; left: 110px; width: 880px; display: flex; align-items: center; gap: 26px; font-weight: 500; letter-spacing: -0.025em; white-space: nowrap; color: #0b0a09; }
+    .voce.o { color: #ff6a00; font-weight: 700; }
+    .segno { flex: none; width: 64px; height: 64px; border-radius: 50%; background: #0b0a09; color: #f8f7f4; font-family: "Space Grotesk"; font-weight: 700; font-size: 36px; line-height: 62px; text-align: center; }
+    .voce.o .segno { background: #ff6a00; color: #0b0a09; }
+    .barra { position: absolute; height: 116px; border-radius: 22px; background: linear-gradient(180deg, #2a2623, #0b0a09); color: #f8f7f4; font-family: "Space Grotesk"; font-weight: 700; font-size: 66px; line-height: 112px; text-align: center; letter-spacing: -0.02em; box-shadow: 0 26px 44px rgba(11, 10, 9, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.14); }
+    .chip { position: absolute; width: 410px; height: 132px; border-radius: 66px; background: #ffffff; box-shadow: 0 24px 50px rgba(11, 10, 9, 0.13), 0 0 0 2px #e7e3dd; display: flex; align-items: center; gap: 24px; padding-left: 22px; font-family: "Space Grotesk"; font-weight: 700; font-size: 50px; letter-spacing: -0.04em; }
+    .chip i, .chip b { flex: none; width: 90px; height: 90px; border-radius: 50%; }
+    .chip i { background: #0b0a09; -webkit-mask: center / 62% no-repeat; mask: center / 62% no-repeat; }
+    .chip b { background: #0b0a09; color: #f8f7f4; text-align: center; line-height: 88px; font-size: 48px; }
+    .term { position: absolute; border-radius: 30px; background: #12100e; box-shadow: 0 44px 90px rgba(11, 10, 9, 0.3); padding: 96px 44px 0; font-family: "JetBrains Mono", monospace; font-size: 33px; line-height: 1.9; color: #e9e5de; }
+    .tbar { position: absolute; left: 34px; top: 30px; display: flex; gap: 14px; }
+    .tbar i { width: 22px; height: 22px; border-radius: 50%; background: #3a3530; }
+    .tbar i:first-child { background: #ff6a00; }
+    .trg { white-space: nowrap; }
+    .trg.ok { color: #ff8a3c; }
+    .url { position: absolute; height: 120px; border-radius: 60px; background: #ffffff; box-shadow: 0 24px 50px rgba(11, 10, 9, 0.13), 0 0 0 2px #e7e3dd; display: flex; align-items: center; gap: 26px; padding-left: 40px; font-family: "Space Grotesk"; font-weight: 700; font-size: 60px; letter-spacing: -0.03em; }
+    .url i { width: 52px; height: 52px; border-radius: 50%; border: 6px solid #0b0a09; box-sizing: border-box; }
+    #passi { position: absolute; left: 0; width: 1080px; top: 190px; display: flex; justify-content: center; gap: 18px; }
+    #passi i { width: 70px; height: 12px; border-radius: 6px; background: #dcd8d1; }
+    #lampo { position: absolute; inset: 0; background: #ffffff; opacity: 0; z-index: 50; }
+    .velo { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 45%, #f4f2ee, #e6e3de); }
+    .cam { position: absolute; inset: 0; }
+    .prop.sw { filter: blur(5px); z-index: 0; }
+    .striscia { position: absolute; left: 0; display: flex; gap: 26px; }
+    .fot { flex: none; width: 216px; height: 384px; border-radius: 26px; overflow: hidden; box-shadow: 0 30px 60px rgba(11, 10, 9, 0.2), 0 0 0 3px #0b0a09; }
+    .fot img, .tel img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .tel { position: absolute; width: 420px; height: 800px; border-radius: 64px; overflow: hidden; border: 14px solid #0b0a09; box-sizing: border-box; background: #f8f7f4; box-shadow: 0 60px 110px rgba(11, 10, 9, 0.34); }
+    .tel img { position: absolute; inset: 0; }
+    .raggi { position: absolute; width: 560px; height: 560px; background: #ff6a00; clip-path: polygon(50% 0%, 58% 30%, 85% 15%, 70% 42%, 100% 50%, 70% 58%, 85% 85%, 58% 70%, 50% 100%, 42% 70%, 15% 85%, 30% 58%, 0% 50%, 30% 42%, 15% 15%, 42% 30%); z-index: 0; }
+    .raggi.ombra { width: 900px; height: 900px; background: #e4e0d9; }
+    .linea { position: absolute; width: 1050px; height: 14px; border-radius: 7px; background: #c9c4bc; transform-origin: 0 50%; rotate: -27deg; z-index: 0; }
+    .chip { font-size: 44px; }
+    .chip span { white-space: nowrap; }
+    .fin { position: absolute; width: 440px; height: 560px; border-radius: 26px; background: #ffffff; overflow: hidden; box-shadow: 0 40px 80px rgba(11, 10, 9, 0.18), 0 0 0 2px #e7e3dd; }
+    .fin .tbar { left: 22px; top: 22px; gap: 10px; } .fin .tbar i { width: 16px; height: 16px; }
+    .fin img { position: absolute; left: 0; top: 60px; width: 100%; height: 500px; object-fit: cover; object-position: 0 0; }
+    .bl { position: absolute; background: #e3dfd8; border-radius: 12px; }
+    .braccio { position: absolute; width: 340px; height: 50px; border-radius: 25px; background: #0b0a09; transform-origin: 0 50%; z-index: 6; }
+    .guanto { position: absolute; width: 210px; height: 210px; margin: -30px 0 0 -30px; z-index: 7; }
+    .gocc { position: absolute; width: 46px; height: 46px; border-radius: 50%; box-shadow: 0 0 0 4px #0b0a09; z-index: 8; }
+    .cursore { position: absolute; width: 70px; height: 92px; z-index: 9; filter: drop-shadow(0 10px 14px rgba(11, 10, 9, 0.3)); }
+    .anello { position: absolute; width: 110px; height: 110px; border-radius: 50%; border: 8px solid #ff6a00; box-sizing: border-box; opacity: 0; z-index: 8; }
+    .timbro { position: absolute; z-index: 12; white-space: nowrap; font-family: "Space Grotesk"; font-weight: 700; font-size: 92px; line-height: 1; letter-spacing: 0.02em; text-transform: uppercase; padding: 14px 36px 20px; border: 11px solid; border-radius: 22px; background: rgba(248, 247, 244, 0.92); box-shadow: 0 26px 50px rgba(11, 10, 9, 0.22); }
+    .flashg { position: absolute; left: -200px; top: -400px; width: 1500px; height: 2800px; background: #ffffff; opacity: 0; z-index: 14; }
+    .prop.piov { z-index: 11; }
+    .flut { position: absolute; z-index: 12; font-family: "Space Grotesk"; font-weight: 700; color: #0b0a09; opacity: 0; }
+    .conta { position: absolute; left: 0; width: 1080px; text-align: center; z-index: 12; font-family: "Space Grotesk"; font-weight: 700; font-size: 150px; letter-spacing: -0.04em; color: #0b0a09; opacity: 0; }
+    .pellicola { position: absolute; left: 0; top: 0; width: 100%; }
+    .pellicola img { display: block; width: 900px; height: 633px; object-fit: cover; object-position: 0 0; }
