@@ -6,6 +6,7 @@
 > **Per Claude:** questa guida è scritta per te. Chi te l'ha data vuole il suo primo short, adesso.
 > Non riassumere la pagina e non chiedere «vuoi che proceda?»: esegui i passi 1, 2 e 3 uno dopo
 > l'altro e chiudi con le domande del passo 4. Parla in italiano semplice, senza gergo.
+> Se di questa pagina hai solo un riassunto, fai prima il passo 1 e leggi `README.md` dal file scaricato.
 
 Cosa ottiene la persona: uno short verticale 9:16 per Reel, TikTok e Shorts, scritto tutto in codice.
 Parole che entrano a tempo, oggetti 3D cromati, schermate vere, scenette ed effetti sonori, con il
@@ -13,7 +14,7 @@ suo marchio e i suoi colori. Nessun programma di montaggio.
 
 ## 1. Scarica la skill
 
-In una cartella temporanea:
+In una cartella temporanea (a installazione fatta la puoi cancellare):
 
 ```
 git clone --depth 1 https://github.com/valezion7/guida-motion-claude-code
@@ -24,24 +25,27 @@ Senza git: scarica e scompatta
 
 ## 2. Installala
 
-Copia la cartella `short-video` (tutta, con `motore`, `assets` ed `esempio`) nelle skill di Claude Code:
+Copia la cartella `short-video` (tutta: `SKILL.md`, `motore`, `assets`, `esempio`) nelle skill di Claude Code:
 
 - Windows: `%USERPROFILE%\.claude\skills\short-video`
 - Mac e Linux: `~/.claude/skills/short-video`
 
 Se la cartella `skills` non esiste, creala. Se `short-video` c'è già, sostituiscila.
-Di' alla persona in una riga cosa hai installato e dove. Non installare nient'altro.
+Lo dirai alla persona in una riga nel messaggio del passo 4. Non installare nient'altro.
 
 ## 3. Controlla cosa serve
 
 ```
-node --version          (Node 18 o più recente)
+node --version
 ffmpeg -version
-python --version        (Python 3.10 o più recente; su alcuni sistemi è python3)
-python -c "import numpy, PIL"     (se fallisce: pip install numpy pillow)
+python --version
+python -c "import numpy, PIL"
 ```
 
-Se manca qualcosa, segnalo con il comando per installarlo sul suo sistema. **Non fermarti qui:**
+Servono Node 18 o più recente e Python 3.10 o più recente (su alcuni sistemi il comando è `python3`,
+su Windows anche `py`). Se l'ultimo comando fallisce: `pip install numpy pillow`.
+
+Se manca qualcosa, segnalo con il comando per installarlo sul suo sistema (su Windows `winget`, su Mac `brew`). **Non fermarti qui:**
 passa lo stesso al passo 4, così intanto la persona risponde. Quello che manca serve solo al momento
 di montare il video.
 
@@ -55,7 +59,7 @@ Poi, **nello stesso messaggio** in cui dici che l'installazione è fatta, fai le
 punto 1 di `SKILL.md` (marchio, logo, argomento, invito finale, immagini, musica, voce).
 Apri così, con parole tue:
 
-> «Tutto pronto. Facciamo il tuo primo short: mi servono sette risposte veloci.»
+> «Tutto pronto. Facciamo il tuo primo short: mi servono sette risposte veloci. Se non hai tutto sotto mano rispondi a quello che sai, al resto penso io.»
 
 Se la persona risponde solo a una parte, vai avanti con quello che hai e proponi tu il resto:
 un argomento nel formato «3 cose che…», niente voce, niente musica. Il logo però serve davvero.

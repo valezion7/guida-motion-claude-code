@@ -12,7 +12,7 @@ La cartella di questa skill è quella che contiene questo file: sotto la chiamo 
 
 ## 0 · Controlla cosa serve (una volta)
 
-Lancia questi comandi e, se qualcosa manca, dillo all'utente con il comando per installarlo. Non proseguire senza.
+Lancia questi comandi uno per volta (le note tra parentesi non fanno parte del comando). Se qualcosa manca, dillo all'utente con il comando per installarlo sul suo sistema (su Windows `winget`, su Mac `brew`), ma fai lo stesso le domande del punto 1: quello che manca serve solo dal punto 4 in poi.
 
 ```
 node --version          (serve Node 18 o più recente)
@@ -21,14 +21,14 @@ python --version        (Python 3.10 o più recente; su alcuni sistemi il comand
 python -c "import numpy, PIL"     (se fallisce: pip install numpy pillow)
 ```
 
-HyperFrames si scarica da solo al primo render (`npx hyperframes`): è gratuito e open source.
+HyperFrames si scarica da solo al primo render (`npx hyperframes@0.9.26`): è gratuito e open source.
 
 ## 1 · Chiedi all'utente (prima di scrivere qualunque cosa)
 
 Fai queste domande tutte insieme, in un solo messaggio. Senza queste risposte il video esce generico.
 
 1. **Marchio**: come si chiama l'attività, il sito, il colore principale (un codice tipo `#0f766e`, oppure «prendilo dal sito»).
-2. **Logo**: un file PNG (meglio quadrato, fondo trasparente). Senza logo non si fa il finale.
+2. **Logo**: un file PNG (meglio quadrato, fondo trasparente). L'utente può trascinarlo nella finestra o dirti dove si trova sul computer; vale lo stesso per immagini e musica. Se non ce l'ha, prendilo dal suo sito oppure aspetta che te lo dia: senza logo non si fa il finale. Non usare mai `esempio/logo.png` per il video di un utente.
 3. **Di cosa parla il video**: l'argomento e a chi parla. Aiutalo con un formato che funziona: «3 cose che puoi fare con…», «5 errori che…», «3 modi per…», «Quello che nessuno ti dice su…».
 4. **Cosa deve fare chi guarda, alla fine**: seguire, commentare una parola, andare sul sito.
 5. **Immagini vere**: schermate del prodotto o del sito, foto. Se ha un sito puoi catturarle tu. Non inventare schermate finte.
@@ -49,6 +49,8 @@ Il copione è la lista `BATTUTE`: una battuta per riga, 5-9 battute, 35-70 secon
 **Mostra il copione all'utente e aspetta il suo sì prima di montare.** Cambiare il testo dopo costa un altro render.
 
 ## 3 · Prepara la cartella del video
+
+Creala in un posto che l'utente ritrova (il Desktop o Documenti, mai una cartella di sistema), con un nome parlante, e digli dov'è. Qui sotto la chiamo `mio-video`.
 
 ```
 mio-video/
@@ -164,7 +166,7 @@ Poi chiedi se vuole cambiare qualcosa o farne un altro.
 
 ## Errori tipici
 
-- **«àncora non trovata»**: la parola non c'è nelle battute dopo il quadro precedente. Usa la parola esatta, punteggiatura compresa.
+- **«àncora non trovata»**: la parola non c'è nelle battute dopo l'inizio del quadro precedente. Scegli una parola che lì compare davvero.
 - **«i quadri non sono in ordine»**: un'àncora ha preso una parola più avanti. Scegline una più specifica.
 - **Parole che entrano tutte insieme o in ritardo**: le `righe` usano parole diverse dalle battute. Riallineale.
 - **Render lento o bloccato**: è normale che ci metta qualche minuto. Non interromperlo.

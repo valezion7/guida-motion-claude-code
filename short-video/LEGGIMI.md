@@ -13,13 +13,13 @@ Se qualcosa manca, Claude te lo dice al primo avvio insieme al comando per insta
 
 ## Come si installa
 
-1. Scompatta `short-video.zip`.
-2. Sposta la cartella `short-video` dentro la cartella delle skill di Claude Code:
+1. Scarica questo repository.
+2. Copia la cartella `short-video` dentro la cartella delle skill di Claude Code:
    - Windows: `C:\Users\<tuo nome>\.claude\skills\`
    - Mac e Linux: `~/.claude/skills/`
 3. Riapri Claude Code.
 
-Oppure dillo a Claude: «installa la skill che trovi in questa cartella» e trascinagli lo zip.
+Oppure, più semplice: dai a Claude Code il link del repository e scrivi «segui questa guida». Fa tutto lui.
 
 ## Come si usa
 
@@ -27,7 +27,7 @@ Scrivi a Claude:
 
 > /short-video voglio un video per la mia attività
 
-Claude ti chiede marchio, logo, argomento e invito finale, ti fa approvare il copione e poi monta il video.
+Claude ti fa sette domande veloci (marchio, logo, argomento, invito finale, immagini, musica, voce), ti fa approvare il copione e poi monta il video.
 Alla fine trovi `video.mp4` nella cartella del progetto.
 
 ## Cosa c'è dentro
