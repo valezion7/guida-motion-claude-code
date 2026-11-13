@@ -39,19 +39,38 @@ Lo dirai alla persona in una riga nel messaggio del passo 4. Non installare nien
 
 ## 3. Controlla cosa serve
 
+Controlla uno per volta se sul computer c'è tutto quello che serve:
+
 ```
 node --version
-ffmpeg -version
 python --version
+ffmpeg -version
+ffprobe -version
 python -c "import numpy, PIL"
 ```
 
-Servono Node 18 o più recente e Python 3.10 o più recente (su alcuni sistemi il comando è `python3`,
-su Windows anche `py`). Se l'ultimo comando fallisce: `pip install numpy pillow`.
+Servono **Node 18 o più recente**, **Python 3.10 o più recente** (su alcuni sistemi il comando è `python3`,
+su Windows anche `py`), **ffmpeg** (con ffprobe) e le librerie Python **numpy** e **pillow**.
+Su Windows, se `python` apre il Microsoft Store invece di rispondere, Python non è installato.
 
-Se manca qualcosa, segnalo con il comando per installarlo sul suo sistema (su Windows `winget`, su Mac `brew`). **Non fermarti qui:**
-passa lo stesso al passo 4, così intanto la persona risponde. Quello che manca serve solo al momento
-di montare il video.
+Poi fai alla persona un resoconto chiaro, una riga per strumento: «c'è» oppure «manca».
+Per ogni cosa che manca dille cos'è in parole semplici e chiedile di installarla, offrendoti di farlo tu
+se ti dà l'ok. I comandi:
+
+| Manca | Windows | Mac | Linux (Debian, Ubuntu) |
+|---|---|---|---|
+| Node | `winget install OpenJS.NodeJS.LTS` | `brew install node` | `sudo apt install nodejs npm` |
+| Python | `winget install Python.Python.3.12` | `brew install python` | `sudo apt install python3 python3-pip` |
+| ffmpeg | `winget install Gyan.FFmpeg` | `brew install ffmpeg` | `sudo apt install ffmpeg` |
+| numpy, pillow | `pip install numpy pillow` | `pip3 install numpy pillow` | `pip3 install numpy pillow` |
+
+Su Mac, se manca `brew`, mandala su https://brew.sh. Dopo un'installazione spesso bisogna chiudere e
+riaprire l'app di Claude (o il terminale) perché il comando nuovo venga trovato: diglielo.
+A installazione fatta rilancia i controlli e conferma che ora c'è tutto. Non montare il video finché
+manca qualcosa.
+
+**Non fermarti ad aspettare:** nello stesso messaggio passa al passo 4, così intanto la persona
+risponde alle domande. Quello che manca serve solo al momento di montare il video.
 
 ## 4. Chiedi subito il primo video
 

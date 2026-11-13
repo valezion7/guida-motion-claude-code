@@ -12,15 +12,37 @@ La cartella di questa skill è quella che contiene questo file: sotto la chiamo 
 
 ## 0 · Controlla cosa serve (una volta)
 
-Lancia questi comandi uno per volta (le note tra parentesi non fanno parte del comando). Se qualcosa manca, dillo all'utente con il comando per installarlo sul suo sistema (su Windows `winget`, su Mac `brew`), ma fai lo stesso le domande del punto 1: quello che manca serve solo dal punto 4 in poi.
+Controlla uno per volta se sul computer c'è tutto quello che serve:
 
 ```
-node --version          (serve Node 18 o più recente)
+node --version
+python --version
 ffmpeg -version
-python --version        (Python 3.10 o più recente; su alcuni sistemi il comando è python3)
-python -c "import numpy, PIL"     (se fallisce: pip install numpy pillow)
+ffprobe -version
+python -c "import numpy, PIL"
 ```
 
+Servono **Node 18 o più recente**, **Python 3.10 o più recente** (su alcuni sistemi il comando è `python3`,
+su Windows anche `py`), **ffmpeg** (con ffprobe) e le librerie Python **numpy** e **pillow**.
+Su Windows, se `python` apre il Microsoft Store invece di rispondere, Python non è installato.
+
+Poi fai alla persona un resoconto chiaro, una riga per strumento: «c'è» oppure «manca».
+Per ogni cosa che manca dille cos'è in parole semplici e chiedile di installarla, offrendoti di farlo tu
+se ti dà l'ok. I comandi:
+
+| Manca | Windows | Mac | Linux (Debian, Ubuntu) |
+|---|---|---|---|
+| Node | `winget install OpenJS.NodeJS.LTS` | `brew install node` | `sudo apt install nodejs npm` |
+| Python | `winget install Python.Python.3.12` | `brew install python` | `sudo apt install python3 python3-pip` |
+| ffmpeg | `winget install Gyan.FFmpeg` | `brew install ffmpeg` | `sudo apt install ffmpeg` |
+| numpy, pillow | `pip install numpy pillow` | `pip3 install numpy pillow` | `pip3 install numpy pillow` |
+
+Su Mac, se manca `brew`, mandala su https://brew.sh. Dopo un'installazione spesso bisogna chiudere e
+riaprire l'app di Claude (o il terminale) perché il comando nuovo venga trovato: diglielo.
+A installazione fatta rilancia i controlli e conferma che ora c'è tutto. Non montare il video finché
+manca qualcosa.
+
+Intanto fai lo stesso le domande del punto 1: quello che manca serve solo dal punto 4 in poi.
 HyperFrames si scarica da solo al primo render (`npx hyperframes@0.9.26`): è gratuito e open source.
 
 ## 1 · Chiedi all'utente (prima di scrivere qualunque cosa)
@@ -95,7 +117,7 @@ Guarda `SKILL/esempio/video.py`: è un video completo e funzionante.
 | `barre` | tre barre nere con scritto solo «01», «02», «03», per annunciare tre livelli o tre passi; il testo va in `righe`, sotto | `barre=["àncora", "àncora", "àncora"]` |
 | `marchio` | finale col logo | `righe=["s:Prova", "g:Nome", "s:sito", "m:^invito^"]` (esattamente 4 righe; l'ultima al massimo 26 caratteri) |
 
-**Oggetti 3D disponibili** (per `prop`, `props`, e per la pioggia): busta, carta, catena, chiave, clessidra, contagocce, database, forbici, fumetto, imbuto, ingranaggi, lente, libro, livelli, luna, molla, moneta, nuvola, salvadanaio, scintille, scontrino, scudo, spina, squadra, tavolozza.
+**Oggetti 3D disponibili** (per `prop`, `props`, e per la pioggia): busta, carta, catena, chiave, clessidra, contagocce, database, forbici, fumetto, imbuto, ingranaggi, lente, libro, livelli, luna, molla, moneta, nuvola, salvadanaio, schiocco, schiocco-a, schiocco-b, scintille, scontrino, scudo, spina, squadra, st-arcade, st-blueprint, st-fumetto, st-terminale, tavolozza.
 Scegli quelli che c'entrano con la frase. Oggetti dell'utente: PNG trasparenti in `oggetti/`.
 
 **Scenette** (`gag=[…]` dentro un quadro): 2 o 3 in tutto il video, nei punti dove la frase si presta. Ognuna ha già il suo suono.
