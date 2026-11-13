@@ -71,3 +71,45 @@
     .conta { position: absolute; left: 0; width: 1080px; text-align: center; z-index: 12; font-family: "Space Grotesk"; font-weight: 700; font-size: 150px; letter-spacing: -0.04em; color: #0b0a09; opacity: 0; }
     .pellicola { position: absolute; left: 0; top: 0; width: 100%; }
     .pellicola img { display: block; width: 900px; height: 633px; object-fit: cover; object-position: 0 0; }
+
+    /* stili che cambiano con uno schiocco (quadri con stile=...) */
+    .pelle { position: absolute; inset: 0; overflow: hidden; z-index: 0; }
+    .snap { position: absolute; inset: 0; z-index: 40; }
+    .snap .mano img { filter: drop-shadow(0 40px 44px rgba(11, 10, 9, 0.35)); }
+    .onda { position: absolute; left: 540px; top: 1600px; width: 2400px; height: 2400px; margin: -1200px 0 0 -1200px; border-radius: 50%; border: 22px solid #ff6a00; box-sizing: border-box; opacity: 0; }
+    .st-blueprint .pelle { background-color: #0f4fa8; background-image: linear-gradient(rgba(255,255,255,.2) 3px, transparent 3px), linear-gradient(90deg, rgba(255,255,255,.2) 3px, transparent 3px), linear-gradient(rgba(255,255,255,.09) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,.09) 2px, transparent 2px); background-size: 270px 270px, 270px 270px, 54px 54px, 54px 54px; }
+    .bpc { position: absolute; left: 190px; top: 560px; width: 700px; height: 700px; border-radius: 50%; border: 5px dashed rgba(255,255,255,.55); box-sizing: border-box; }
+    .bpq { position: absolute; left: 120px; width: 840px; height: 4px; background: #ffffff; transform-origin: 0 50%; }
+    .bpq::before, .bpq::after { content: ""; position: absolute; top: -22px; width: 4px; height: 48px; background: #ffffff; } .bpq::after { right: 0; }
+    .bpq b { position: absolute; left: 0; width: 100%; top: -62px; text-align: center; font: 500 38px "JetBrains Mono", Consolas, monospace; color: #ffffff; }
+    .st-blueprint .riga, .st-blueprint .riga.m, .st-blueprint .riga.g { font-family: "JetBrains Mono", Consolas, monospace; font-weight: 700; letter-spacing: -0.04em; color: #ffffff; text-transform: uppercase; }
+    .st-blueprint .riga.s { color: #a9d0ff; }
+    .st-arcade .pelle { background: linear-gradient(180deg, #14062e 0%, #3a0f6e 38%, #c2247a 60%, #0d0420 60.1%); }
+    .sole { position: absolute; left: 240px; top: 800px; width: 600px; height: 600px; border-radius: 50%; background: repeating-linear-gradient(180deg, #ffe14d 0 46px, #ff3d81 46px 58px); -webkit-mask: linear-gradient(180deg, #000 60%, transparent 100%); mask: linear-gradient(180deg, #000 60%, transparent 100%); }
+    .pav { position: absolute; left: -1100px; top: 1154px; width: 3280px; height: 1500px; transform: perspective(700px) rotateX(64deg); transform-origin: 50% 0; background-image: linear-gradient(#27e5ff 4px, transparent 4px), linear-gradient(90deg, #27e5ff 4px, transparent 4px); background-size: 140px 140px; }
+    .st-arcade .riga, .st-arcade .riga.m, .st-arcade .riga.g { font-family: "Space Grotesk"; font-weight: 700; font-style: italic; text-transform: uppercase; color: #ffffff; text-shadow: 5px 5px 0 #ff3d81, -4px -3px 0 #27e5ff, 0 0 44px rgba(255, 61, 129, 0.9); }
+    .st-arcade .riga.s { color: #ffe14d; text-shadow: 3px 3px 0 #3a0f6e; }
+    .st-terminale .pelle { background: #060907; }
+    .scan { position: absolute; inset: 0; background: repeating-linear-gradient(180deg, rgba(57,255,122,.07) 0 3px, transparent 3px 9px); }
+    .tr1 { position: absolute; left: 90px; top: 330px; font: 500 44px "JetBrains Mono", Consolas, monospace; color: #1f9e4b; white-space: nowrap; }
+    .st-terminale .riga, .st-terminale .riga.m, .st-terminale .riga.g { font-family: "JetBrains Mono", Consolas, monospace; font-weight: 700; letter-spacing: -0.04em; color: #39ff7a; text-shadow: 0 0 26px rgba(57, 255, 122, 0.75); }
+    .st-terminale .riga.s { color: #1f9e4b; text-shadow: none; }
+    .st-fumetto .pelle { background-color: #ffd60a; background-image: radial-gradient(circle, #ff9f0a 9px, transparent 10px); background-size: 40px 40px; }
+    .bam { position: absolute; left: 600px; top: 250px; width: 440px; height: 440px; background: #e5484d; clip-path: polygon(50% 0, 61% 22%, 85% 10%, 79% 35%, 100% 44%, 81% 58%, 93% 82%, 68% 78%, 60% 100%, 46% 80%, 24% 96%, 26% 70%, 0 62%, 20% 45%, 6% 22%, 32% 26%); display: flex; align-items: center; justify-content: center; }
+    .bam span { font: italic 700 96px "Space Grotesk"; color: #ffffff; letter-spacing: -0.03em; }
+    .st-fumetto .riga, .st-fumetto .riga.m, .st-fumetto .riga.g { font-family: "Space Grotesk"; font-weight: 700; font-style: italic; text-transform: uppercase; color: #ffffff; -webkit-text-stroke: 16px #0b0a09; paint-order: stroke fill; }
+    .st-fumetto .riga.s { color: #0b0a09; -webkit-text-stroke: 0; }
+
+    /* schiocco v2: negativo, scintille, stella; pelle «casa» */
+    .onda { width: 2600px; height: 2600px; margin: -1300px 0 0 -1300px; border-width: 26px; box-shadow: 0 0 60px currentColor, inset 0 0 60px rgba(255,255,255,.5); }
+    .nega { position: absolute; inset: 0; -webkit-backdrop-filter: invert(1) hue-rotate(180deg) saturate(1.5); backdrop-filter: invert(1) hue-rotate(180deg) saturate(1.5); opacity: 0; }
+    .stel { position: absolute; width: 760px; height: 760px; margin: -380px 0 0 -380px; background: #ffffff; clip-path: polygon(50% 0, 54% 46%, 100% 50%, 54% 54%, 50% 100%, 46% 54%, 0 50%, 46% 46%); }
+    .sc { position: absolute; width: 0; height: 0; }
+    .sc i { position: absolute; left: -8px; bottom: 0; width: 16px; border-radius: 8px; transform-origin: 50% 100%; }
+    .st-casa .pelle { background-color: #f8f7f4; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cpath d='M60 53v14M53 60h14' stroke='%23d9d5cf' stroke-width='2'/%3E%3C/svg%3E"); background-size: 120px 120px; }
+    .st-casa .luce { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 55% at 50% 45%, rgba(255,255,255,0.75), rgba(255,255,255,0) 70%); }
+    .st-blueprint .prop img, .st-terminale .prop img, .st-arcade .prop img { filter: none; }
+    .st-terminale .prop img { filter: drop-shadow(0 0 30px rgba(57, 255, 122, 0.55)); }
+    .st-arcade .prop img { filter: drop-shadow(0 0 40px rgba(255, 61, 129, 0.7)); }
+    .st-blueprint .bpc { display: none; }
+    .sc i { opacity: 0; }

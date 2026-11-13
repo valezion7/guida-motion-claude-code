@@ -3,13 +3,22 @@ fatte con qualunque sintetizzatore o registrate a mano), le pulisce, le unisce e
 Scrive <progetto>/voce/voce.wav e parole.json: da quel momento genera.py usa la voce al posto dei tempi di lettura.
 
 Uso: python voce.py <cartella-progetto>
-     python voce.py <cartella-progetto> --elevenlabs <ID_VOCE>   (genera prima le battute con ElevenLabs: serve la
-                                                                  variabile d'ambiente ELEVENLABS_API_KEY dell'utente)
+     python voce.py <cartella-progetto> --edge [VOCE]            (GRATIS, senza chiave: genera le battute con le voci
+                                                                  online di Microsoft Edge; serve pip install edge-tts)
+     python voce.py <cartella-progetto> --elevenlabs <ID_VOCE>   (a pagamento, più naturale: serve la variabile
+                                                                  d'ambiente ELEVENLABS_API_KEY dell'utente)
 Serve: pip install faster-whisper"""
 import json, os, runpy, subprocess, sys, urllib.request
-if len(sys.argv) < 2: raise SystemExit("uso: python voce.py <cartella-progetto> [--elevenlabs ID_VOCE]")
+if len(sys.argv) < 2: raise SystemExit("uso: python voce.py <cartella-progetto> [--edge [VOCE] | --elevenlabs ID_VOCE]")
 P = os.path.abspath(sys.argv[1]); V = os.path.join(P, "voce"); os.makedirs(V, exist_ok=True)
 battute = runpy.run_path(os.path.join(P, "video.py"), init_globals={"Q": dict})["BATTUTE"]
+if "--edge" in sys.argv:   # voce gratuita: nessuna chiave, serve la rete
+    try: import asyncio, edge_tts
+    except ImportError: raise SystemExit("per la voce gratuita serve edge-tts: pip install edge-tts")
+    k = sys.argv.index("--edge"); voce = sys.argv[k + 1] if len(sys.argv) > k + 1 and not sys.argv[k + 1].startswith("--") else "it-IT-GiuseppeMultilingualNeural"
+    async def _tutte():
+        for i, b in enumerate(battute, 1): await edge_tts.Communicate(b, voce, rate="+7%").save(os.path.join(V, f"{i:02d}.mp3")); print("battuta", i, "registrata")
+    asyncio.run(_tutte())
 if "--elevenlabs" in sys.argv:
     chiave = os.environ.get("ELEVENLABS_API_KEY"); voce = sys.argv[sys.argv.index("--elevenlabs") + 1]
     if not chiave: raise SystemExit("manca la variabile d'ambiente ELEVENLABS_API_KEY (la chiave è dell'utente: non scriverla nei file)")

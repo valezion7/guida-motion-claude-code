@@ -94,8 +94,10 @@ Riaperto Claude Code basta scrivere `/short-video` oppure «fammi uno short su�
 
 ## Buono a sapersi
 
-- Voce e musica non sono incluse. Il video funziona anche senza voce (le parole entrano a ritmo di
-  lettura). Per la musica serve un brano di cui si hanno i diritti.
+- Il video funziona anche senza voce (le parole entrano a ritmo di lettura). Se la vuoi, Claude ti
+  propone una voce gratuita, senza chiavi né account, che va bene per cominciare. Le voci a pagamento
+  (ElevenLabs) sono più naturali ed espressive: si sente. Puoi anche registrare tu le battute.
+- La musica non è inclusa: serve un brano di cui hai i diritti.
 - Il render usa HyperFrames, gratuito e open source: si scarica da solo la prima volta.
 - I caratteri (DM Sans, Space Grotesk) sono distribuiti con licenza OFL, inclusa in `short-video/assets/fonts`.
 

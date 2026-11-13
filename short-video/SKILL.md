@@ -55,7 +55,7 @@ Fai queste domande tutte insieme, in un solo messaggio. Senza queste risposte il
 4. **Cosa deve fare chi guarda, alla fine**: seguire, commentare una parola, andare sul sito.
 5. **Immagini vere**: schermate del prodotto o del sito, foto. Se ha un sito puoi catturarle tu. Non inventare schermate finte.
 6. **Musica**: un brano di cui ha i diritti (file mp3). Se non ne ha, il video esce con i soli effetti sonori: diglielo.
-7. **Voce**: sì o no. Senza voce il video funziona lo stesso (le parole entrano a ritmo di lettura). Con la voce servono le battute registrate, oppure la sua chiave ElevenLabs.
+7. **Voce**: sì o no. Senza voce il video funziona lo stesso (le parole entrano a ritmo di lettura). Se la vuole, c'è una voce gratuita pronta subito; le voci a pagamento (ElevenLabs) sono più naturali; oppure può registrarla lui.
 
 ## 2 · Scrivi il copione e fallo approvare
 
@@ -164,17 +164,34 @@ Correggi e rigenera finché è pulito. Non renderizzare senza aver guardato.
 
 ## 5 · Voce (solo se l'utente la vuole)
 
-Le battute registrate vanno in `mio-video/voce/01.mp3`, `02.mp3`… una per battuta, nello stesso ordine. Poi:
+Proponi le strade in quest'ordine e di' le cose come stanno: **la voce gratuita va bene per cominciare, quelle a
+pagamento sono più naturali ed espressive, e si sente.** La scelta è dell'utente.
 
-```
-pip install faster-whisper
-python SKILL/motore/voce.py mio-video
-python SKILL/motore/genera.py mio-video
-```
+1. **Gratis, senza chiave e senza account (consigliala per il primo video).** Usa le voci online di Microsoft Edge:
 
-Con una chiave ElevenLabs dell'utente (variabile d'ambiente `ELEVENLABS_API_KEY`, mai scritta nei file):
-`python SKILL/motore/voce.py mio-video --elevenlabs <ID_VOCE>`.
-Dopo la voce ricontrolla i fotogrammi: i tempi cambiano.
+   ```
+   pip install edge-tts faster-whisper
+   python SKILL/motore/voce.py mio-video --edge
+   ```
+
+   Di base è una voce maschile italiana. Per una femminile: `--edge it-IT-IsabellaNeural`. L'elenco completo:
+   `python -m edge_tts --list-voices` (quelle italiane iniziano con `it-IT`). Serve la connessione a internet.
+   Avvisa l'utente: `edge-tts` è una libreria non ufficiale, quindi il servizio può cambiare senza preavviso.
+2. **Le sue registrazioni.** Gratis anche questa: le battute lette da lui (o fatte con qualunque strumento) in
+   `mio-video/voce/01.mp3`, `02.mp3`… una per battuta, nello stesso ordine. Poi:
+
+   ```
+   pip install faster-whisper
+   python SKILL/motore/voce.py mio-video
+   ```
+3. **ElevenLabs, a pagamento: la resa migliore.** Con la chiave dell'utente nella variabile d'ambiente
+   `ELEVENLABS_API_KEY` (mai scritta nei file né in chat; se te la incolla in chat, digli di metterla nella variabile):
+   `python SKILL/motore/voce.py mio-video --elevenlabs <ID_VOCE>`.
+   ElevenLabs ha anche un piano gratuito, ma è solo per uso non commerciale e con attribuzione: per i video di
+   un'attività serve un piano a pagamento. Dillo, e fai controllare all'utente le condizioni aggiornate sul loro sito.
+
+In tutti e tre i casi, dopo la voce rilancia `python SKILL/motore/genera.py mio-video` e ricontrolla i fotogrammi:
+i tempi cambiano.
 
 ## 6 · Render e consegna
 

@@ -39,8 +39,8 @@ Alla fine trovi `video.mp4` nella cartella del progetto.
 
 ## Voce e musica
 
-La voce non è inclusa. Il video funziona anche senza (le parole entrano a ritmo di lettura); se la vuoi, puoi usare
-le tue registrazioni o la tua chiave ElevenLabs. Per la musica usa un brano di cui hai i diritti.
+Il video funziona anche senza voce (le parole entrano a ritmo di lettura). Se la vuoi: una voce gratuita pronta
+subito, le tue registrazioni, oppure ElevenLabs a pagamento, che suona più naturale. Per la musica usa un brano di cui hai i diritti.
 
 Oggetti 3D inclusi: busta, carta, catena, chiave, clessidra, contagocce, database, forbici, fumetto, imbuto, ingranaggi, lente, libro, livelli, luna, molla, moneta, nuvola, salvadanaio, scintille, scontrino, scudo, spina, squadra, tavolozza.
 

@@ -33,6 +33,16 @@ def timbro():
 def campanella(d=0.9):
     t = _t(d); return (np.sin(2 * np.pi * 1046 * t) + 0.6 * np.sin(2 * np.pi * 1568 * t) + 0.3 * np.sin(2 * np.pi * 2093 * t)) * np.exp(-t * 5) * 0.3
 
+def schiocco(d=0.16):
+    """Schiocco di dita: uno scatto secco e brillante con una coda corta di stanza."""
+    t = _t(d); n = rng.standard_normal(len(t)); r = int(SR * 0.018)
+    secco = n * np.exp(-t * 420) * 0.9 + np.sin(2 * np.pi * 2300 * t) * np.exp(-t * 300) * 0.6 + np.sin(2 * np.pi * 1150 * t) * np.exp(-t * 180) * 0.35
+    coda = np.concatenate([np.zeros(r), n[: len(t) - r] * np.exp(-t[: len(t) - r] * 60) * 0.12])
+    return (secco + coda) * 0.9
+def onda(d=0.5):
+    """L'onda d'urto dopo lo schiocco: un tono che precipita con un soffio."""
+    t = _t(d); f = 950 * np.exp(-t * 8) + 60; ph = 2 * np.pi * np.cumsum(f) / SR
+    return (np.sin(ph) * np.exp(-t * 6.5) * 0.75 + rng.standard_normal(len(t)) * np.exp(-t * 13) * 0.22) * 0.8
 def traccia(quadri, tot, file):
     out = np.zeros(int(SR * (tot + 1)))
     def metti(s, t):
@@ -52,7 +62,7 @@ def traccia(quadri, tot, file):
         if q.get("tipo") == "url":
             for k in range(0, len(q["url"]), 2): metti(tasto(), t + 0.3 + k * 0.7 / len(q["url"]))
         for tt, nome in q.get("suoni", []):  # suoni chiesti dalla scaletta o dalle scenette (es. la mano che ruba il design)
-            metti({"pop": pop, "fruscio": fruscio, "colpo": colpo, "campanella": campanella, "tasto": tasto, "molla": molla, "scatto": scatto, "timbro": timbro}[nome](), tt)
+            metti({"pop": pop, "fruscio": fruscio, "colpo": colpo, "campanella": campanella, "tasto": tasto, "molla": molla, "scatto": scatto, "timbro": timbro, "schiocco": schiocco, "onda": onda}[nome](), tt)
         if q.get("tipo") in ("orbita", "telefono", "titolo"): metti(F, t + 0.05)
         if q.get("campana") or q.get("tipo") in ("segui", "marchio"): metti(campanella(), t + (q.get("campana") or 0.3))
     out = np.clip(out, -1, 1)

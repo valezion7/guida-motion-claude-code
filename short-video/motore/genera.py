@@ -3,10 +3,13 @@ Uso: python genera.py <cartella-progetto>"""
 import json, os, re, shutil, subprocess, sys, unicodedata
 
 def norm(s):
+    # la trascrizione scrive i numeri in cifre («Uno:» diventa «1.»): parole e cifre devono agganciarsi lo stesso
     s = unicodedata.normalize("NFD", s.lower()); s = "".join(c for c in s if c.isalnum())
-    return {"cinque": "5", "tre": "3", "quindici": "15", "dieci": "10"}.get(s, s)
+    return {"trenta": "30", "quaranta": "40", "cinquanta": "50", "sessanta": "60", "settanta": "70", "ottanta": "80", "novanta": "90", "cento": "100", "mille": "1000",
+            **{w: str(i) for i, w in enumerate("zero uno due tre quattro cinque sei sette otto nove dieci undici dodici tredici quattordici quindici sedici diciassette diciotto diciannove venti".split())}}.get(s, s)
 
 class Film:
+    DITA = (600, 1470)   # dove stanno le dita che schioccano: da lì parte tutto
     def __init__(self, par, wow=1, forme=0):
         self.par, self.wow, self.forme = par, wow, forme
         self.html, self.js, self.n, self.fondo = [], [], 0, 0
@@ -43,7 +46,8 @@ class Film:
         inner = " ".join(spans)
         if cl == "tag": inner = f'<span class="tagbox" id="{rid}b">{inner}</span>'
         self.html.append(f'<div class="riga {cl}" id="{rid}" style="top:{top}px;{pos};font-size:{size}px">{inner}</div>')
-        if cl == "tag": self.js.append(f'TAG("#{rid}b",{tt[0]});')
+        if getattr(self, "fermo", 0): pass
+        elif cl == "tag": self.js.append(f'TAG("#{rid}b",{tt[0]});')
         elif cl in "mg": self.js.append(f'{"G3" if self.wow else "G"}("#{rid} .w",{json.dumps(tt)});')
         else: self.js.append(f'W("#{rid} .w",{json.dumps(tt)});')
         self.fondo = max(self.fondo, top + int(size * 1.2))
@@ -55,6 +59,7 @@ class Film:
         pid = f"{sid}p{k}"
         dentro = f'<img src="assets/img3d/{img}.png" alt="">'
         self.html.append(f'<div class="prop" id="{pid}" style="left:{x}px;top:{y}px;width:{l}px;height:{l}px">{dentro}</div>')
+        if getattr(self, "fermo", 0): self.js.append(f'tl.fromTo("#{pid}",{{y:12,rotation:-2,scale:1}},{{y:-16,rotation:2,scale:1.04,duration:{round(max(0.6, dur), 2)},ease:"sine.inOut"}},{round(t - 0.1, 2)});'); return
         self.js.append(f'{"P3" if self.wow else "P"}("#{pid}",{t},{json.dumps(da)},{max(1, int((dur - 0.8) / 1.5))},{16 if k % 2 else -18});')
     def bottone(self, sid, x, y, t):
         self.html.append(f'<div class="bottone" id="{sid}bt" style="left:{x}px;top:{y}px"><div class="stella"></div></div>')
@@ -94,11 +99,55 @@ class Film:
             self.js.append(f'(()=>{{const o={{v:{da}}},e=document.querySelector("#{gid}");tl.fromTo("#{gid}",{{opacity:0,scale:.6}},{{opacity:1,scale:1,duration:.3,ease:"back.out(2)"}},{round(t - 0.35, 2)});tl.to(o,{{v:{a},duration:1.1,ease:"power2.inOut",onUpdate:()=>{{e.textContent="{pre}"+Math.round(o.v)}}}},{t});tl.to("#{gid}",{{scale:1.25,color:"#ff6a00",duration:.18,yoyo:true,repeat:1}},{round(t + 1.1, 2)});}})();')
             S += [(round(t + i * 0.13, 2), "tasto") for i in range(8)] + [(round(t + 1.1, 2), "campanella")]
 
+    def pelle(self, sid, st, t0, d):
+        """Fondo a tutto schermo di uno stile, con un suo piccolo movimento. Sta fuori dalla camera: non ruota col testo."""
+        p = f"{sid}pl"
+        if st == "blueprint":
+            self.js.append(f'tl.fromTo("#{p} .bpc",{{rotation:0,scale:.2,opacity:0}},{{rotation:90,scale:1,opacity:1,duration:{d},ease:"power2.out"}},{t0});tl.fromTo("#{p} .bpq",{{scaleX:0}},{{scaleX:1,duration:.5,ease:"power3.out"}},{round(t0 + 0.15, 2)});')
+            dentro = '<div class="bpc"></div><div class="bpq" style="top:330px"><b>1080</b></div><div class="bpq" style="top:1330px"><b>scala 1:1</b></div>'
+        elif st == "arcade":
+            self.js.append(f'tl.fromTo("#{p} .pav",{{backgroundPositionY:"0px"}},{{backgroundPositionY:"{int(d * 420)}px",duration:{d},ease:"none"}},{t0});tl.fromTo("#{p} .sole",{{y:260,scale:.6}},{{y:0,scale:1,duration:.6,ease:"back.out(1.5)"}},{t0});')
+            dentro = '<div class="sole"></div><div class="pav"></div>'
+        elif st == "terminale":
+            self.js.append(f'tl.fromTo("#{p} .cur",{{opacity:1}},{{opacity:0,duration:.01,repeat:{max(1, int(d / 0.3))},repeatDelay:.29,yoyo:true}},{t0});tl.fromTo("#{p} .tr1",{{clipPath:"inset(0% 100% 0% 0%)"}},{{clipPath:"inset(0% 0% 0% 0%)",duration:.5,ease:"steps(18)"}},{round(t0 + 0.1, 2)});')
+            dentro = '<div class="tr1">$ claude --stile terminale<span class="cur">\u2588</span></div><div class="scan"></div>'
+        elif st == "casa": dentro = '<div class="luce"></div>'   # il nostro fondo chiaro, come pelle
+        else:  # fumetto
+            self.js.append(f'tl.fromTo("#{p} .bam",{{scale:0,rotation:-60}},{{scale:1,rotation:-10,duration:.35,ease:"back.out(3)"}},{round(t0 + 0.1, 2)});tl.to("#{p} .bam",{{rotation:6,scale:1.08,duration:{max(0.3, round(d - 0.5, 2))},ease:"sine.inOut"}},{round(t0 + 0.45, 2)});tl.fromTo("#{p}",{{backgroundPosition:"0px 0px"}},{{backgroundPosition:"80px 50px",duration:{d},ease:"none"}},{t0});')
+            dentro = '<div class="bam"><span>BAM!</span></div>'
+        return f'<div class="pelle" id="{p}">{dentro}</div>'
+    def schiocco(self, sid, q, t0, col):
+        """Schiocco rapido: la mano cromata arriva in un lampo, schiocca (due pose), e dal punto delle dita partono
+        scintille, una stella, tre onde e un fotogramma in negativo. Il quadro nuovo si apre a cerchio da lì (vedi quadro)."""
+        h = f"{sid}sn"; cx, cy = self.DITA; R = lambda v: round(v, 2)
+        mano = 'style="left:330px;top:1390px;width:420px;height:420px"'
+        raggi = ""
+        for i in range(18):
+            ang = i * 20 + (7 if i % 2 else -5); lung = 70 + (i * 53) % 110
+            raggi += f'<div class="sc" style="left:{cx}px;top:{cy}px;transform:rotate({ang}deg)"><i id="{h}r{i}" style="height:{lung}px;background:{col if i % 3 else "#ffffff"}"></i></div>'
+            self.js.append(f'tl.set("#{h}r{i}",{{opacity:1}},{R(t0)});tl.fromTo("#{h}r{i}",{{y:0,scaleY:.15}},{{y:{-(360 + (i * 97) % 460)},scaleY:1,duration:{R(0.34 + (i % 4) * 0.05)},ease:"expo.out"}},{R(t0)});tl.to("#{h}r{i}",{{opacity:0,scaleY:.1,duration:.16}},{R(t0 + 0.24 + (i % 4) * 0.03)});')
+        self.html.append(f'<div class="clip snap" id="{h}" data-start="{R(t0 - 0.34)}" data-duration="1.1" data-layout-ignore>'
+                         f'<div class="nega" id="{h}n"></div>'
+                         + "".join(f'<div class="onda" id="{h}o{k}" style="left:{cx}px;top:{cy}px;border-color:{col if k != 2 else "#ffffff"}"></div>' for k in (1, 2, 3))
+                         + raggi + f'<div class="stel" id="{h}s" style="left:{cx}px;top:{cy}px"></div>'
+                         f'<div class="prop mano" id="{h}a" {mano}><img src="assets/img3d/schiocco-a.png" alt=""></div><div class="prop mano" id="{h}b" {mano}><img src="assets/img3d/schiocco-b.png" alt=""></div></div>')
+        self.js.append(
+            f'tl.fromTo("#{h}a",{{opacity:0,y:640,x:-140,rotation:-50,scale:.6}},{{opacity:1,y:0,x:0,rotation:0,scale:1,duration:.2,ease:"back.out(2.2)"}},{R(t0 - 0.31)});'
+            f'tl.to("#{h}a",{{scale:1.12,rotation:-9,duration:.07,ease:"power2.in"}},{R(t0 - 0.09)});tl.set("#{h}a",{{opacity:0}},{R(t0 - 0.01)});'
+            f'tl.set("#{h}b",{{opacity:0}},0);tl.fromTo("#{h}b",{{opacity:1,scale:1.3,rotation:14}},{{opacity:1,scale:1,rotation:0,duration:.18,ease:"back.out(3)",immediateRender:false}},{R(t0 - 0.01)});'
+            f'tl.to("#{h}b",{{y:720,x:170,rotation:60,opacity:0,scale:.7,duration:.24,ease:"power3.in"}},{R(t0 + 0.24)});'
+            f'tl.fromTo("#{h}n",{{opacity:0}},{{opacity:1,duration:.01}},{R(t0 - 0.01)});tl.to("#{h}n",{{opacity:0,duration:.05}},{R(t0 + 0.06)});'
+            f'tl.fromTo("#{h}s",{{scale:0,rotation:0,opacity:1}},{{scale:1,rotation:130,opacity:0,duration:.36,ease:"power2.out"}},{R(t0)});'
+            + "".join(f'tl.fromTo("#{h}o{k}",{{scale:0,opacity:1}},{{scale:{0.35 + k * 0.4},opacity:0,duration:{R(0.3 + k * 0.08)},ease:"power2.out"}},{R(t0 + (k - 1) * 0.045)});' for k in (1, 2, 3)))
+        q.setdefault("suoni", []).extend([(R(t0 - 0.02), "schiocco"), (R(t0), "onda")])
+
     def quadro(self, q, t1):
-        self.n += 1; sid = f"q{self.n}"; t0 = q["t"]; d = round(t1 - t0, 2); tipo = q["tipo"]; R = q.get("righe", [])
-        self.html.append(f'<div class="clip sh" id="{sid}" data-start="{t0}" data-duration="{d}" data-layout-allow-overlap data-layout-allow-overflow><div class="cam" id="{sid}cam"><div class="in" id="{sid}in" style="top:@@OFF@@px">')
+        self.fermo = q.get("fermo"); self.n += 1; sid = f"q{self.n}"; t0 = q["t"]; d = round(t1 - t0, 2); tipo = q["tipo"]; R = q.get("righe", [])
+        st = q.get("stile")   # il quadro cambia pelle: blueprint, arcade, terminale, fumetto (poi si torna al nostro)
+        self.html.append(f'<div class="clip sh{" st-" + st if st else ""}" id="{sid}" data-start="{t0}" data-duration="{round(d + 0.5, 2) if q.get("_dopo") else d}" data-layout-allow-overlap data-layout-allow-overflow>{self.pelle(sid, st, t0, d) if st else ""}<div class="cam" id="{sid}cam"><div class="in" id="{sid}in" style="top:@@OFF@@px">')
         segna = len(self.html) - 1; self.fondo = 0
-        if self.wow and tipo not in ("segui", "marchio"):
+        if st: self.js.append(f'CAM("#{sid}cam",{t0},{d},{self.n});')
+        elif self.wow and tipo not in ("segui", "marchio"):
             self.js.append(f'CAM("#{sid}cam",{t0},{d},{self.n});')
             if self.forme:  # raggi arancioni piatti agli angoli, come nel riferimento VRqW0d8-dIU
                 if tipo != "titolo" and self.n % 4:
@@ -275,7 +324,14 @@ class Film:
         off = 0 if cima is None else max(0, min(260, 880 - (cima + self.fondo) // 2))
         self.html[segna] = self.html[segna].replace("@@OFF@@", str(off))
         self.html.append('</div></div></div>')
-        if self.wow and tipo not in ("segui", "marchio"):  # uscite diverse a rotazione: attraverso lo schermo, frustata, ribaltata
+        if q.get("schiocco"):
+            self.schiocco(sid, q, t0, {"blueprint": "#7fd1ff", "arcade": "#ff3d81", "terminale": "#39ff7a", "fumetto": "#e5484d"}.get(st, "#ff6a00"))
+            cx, cy = self.DITA
+            self.js.append(f'tl.fromTo("#{sid}",{{clipPath:"circle(0px at {cx}px {cy}px)"}},{{clipPath:"circle(2500px at {cx}px {cy}px)",duration:.4,ease:"power2.out"}},{t0});'
+                           f'tl.fromTo("#{sid}in",{{scale:1.45,rotation:-4}},{{scale:1,rotation:0,duration:.55,ease:"expo.out"}},{t0});'
+                           f'tl.fromTo("#{sid}in",{{x:-16}},{{x:16,duration:.04,yoyo:true,repeat:5,ease:"none"}},{round(t0 + 0.02, 2)});tl.set("#{sid}in",{{x:0}},{round(t0 + 0.27, 2)});')
+        if q.get("_dopo"): pass
+        elif self.wow and tipo not in ("segui", "marchio"):  # uscite diverse a rotazione: attraverso lo schermo, frustata, ribaltata
             via = ['scale:1.8,filter:"blur(22px)"', 'x:-1000,skewX:14,filter:"blur(18px)"', 'y:-520,rotationX:65,transformPerspective:1200,filter:"blur(14px)"'][self.n % 3]
             self.js.append(f'tl.to("#{sid}in",{{opacity:0,{via},duration:.26,ease:"power3.in"}},{round(t1 - 0.27, 2)});')
         elif tipo not in ("segui", "marchio"): self.js.append(f'tl.to("#{sid}in",{{opacity:0,scale:1.07,filter:"blur(16px)",duration:.22,ease:"power2.in"}},{round(t1 - 0.23, 2)});')
