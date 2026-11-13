@@ -22,7 +22,7 @@ def tic(d=0.025):
 def tasto():
     # tasto di tastiera: scatto secco + corpo basso, ogni volta un po' diverso (come una mano vera)
     d = 0.05; t = _t(d); f = 1700 + rng.uniform(-350, 450)
-    return (rng.standard_normal(len(t)) * np.exp(-t * 260) * 0.5 + np.sin(2 * np.pi * f * t) * np.exp(-t * 190) * 0.3 + np.sin(2 * np.pi * 160 * t) * np.exp(-t * 70) * 0.35) * rng.uniform(0.7, 1.0) * 0.4   # Valerio 11/11: «effetti di scrittura volume troppo alto»
+    return (rng.standard_normal(len(t)) * np.exp(-t * 260) * 0.5 + np.sin(2 * np.pi * f * t) * np.exp(-t * 190) * 0.3 + np.sin(2 * np.pi * 160 * t) * np.exp(-t * 70) * 0.35) * rng.uniform(0.7, 1.0) * 0.4   # 11/11: gli effetti di scrittura erano troppo alti
 def molla(d=0.5):
     t = _t(d); return np.sin(2 * np.pi * (240 + 160 * np.sin(2 * np.pi * 9 * t) * np.exp(-t * 6)) * t) * np.exp(-t * 7) * 0.4
 def scatto():
