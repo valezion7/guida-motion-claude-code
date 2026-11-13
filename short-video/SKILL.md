@@ -117,7 +117,7 @@ Guarda `SKILL/esempio/video.py`: è un video completo e funzionante.
 | `barre` | tre barre nere con scritto solo «01», «02», «03», per annunciare tre livelli o tre passi; il testo va in `righe`, sotto | `barre=["àncora", "àncora", "àncora"]` |
 | `marchio` | finale col logo | `righe=["s:Prova", "g:Nome", "s:sito", "m:^invito^"]` (esattamente 4 righe; l'ultima al massimo 26 caratteri) |
 
-**Oggetti 3D disponibili** (per `prop`, `props`, e per la pioggia): busta, carta, catena, chiave, clessidra, contagocce, database, forbici, fumetto, imbuto, ingranaggi, lente, libro, livelli, luna, molla, moneta, nuvola, salvadanaio, schiocco, schiocco-a, schiocco-b, scintille, scontrino, scudo, spina, squadra, st-arcade, st-blueprint, st-fumetto, st-terminale, tavolozza.
+**Oggetti 3D disponibili** (per `prop`, `props`, e per la pioggia): busta, carta, catena, chiave, clessidra, contagocce, database, forbici, fumetto, imbuto, ingranaggi, lente, libro, livelli, luna, molla, moneta, nuvola, salvadanaio, scintille, scontrino, scudo, spina, squadra, tavolozza.
 Scegli quelli che c'entrano con la frase. Oggetti dell'utente: PNG trasparenti in `oggetti/`.
 
 **Scenette** (`gag=[…]` dentro un quadro): 2 o 3 in tutto il video, nei punti dove la frase si presta. Ognuna ha già il suo suono.
